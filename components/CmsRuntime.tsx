@@ -1,0 +1,6 @@
+'use client';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
+type CmsElement={selector:string;property:'text'|'href'|'src'|'alt'|'title';value:string};
+type CmsPayload={seo_title?:string;seo_description?:string;content_json?:{elements?:CmsElement[]}};
+export default function CmsRuntime(){const pathname=usePathname();useEffect(()=>{const controller=new AbortController();const segment=pathname.split('/').filter(Boolean)[0]||'home';if(segment==='admin'||segment==='api')return;fetch(`/api/cms/page?slug=${encodeURIComponent(segment)}`,{signal:controller.signal}).then(r=>r.ok?r.json():null).then((data:CmsPayload|null)=>{if(!data)return;if(data.seo_title)document.title=data.seo_title;if(data.seo_description){let meta=document.querySelector<HTMLMetaElement>('meta[name="description"]');if(!meta){meta=document.createElement('meta');meta.name='description';document.head.appendChild(meta)}meta.content=data.seo_description}for(const field of data.content_json?.elements||[]){try{document.querySelectorAll<HTMLElement>(field.selector).forEach(el=>{if(field.property==='text')el.textContent=field.value;else el.setAttribute(field.property,field.value)})}catch{}}}).catch(()=>{});return()=>controller.abort()},[pathname]);return null}

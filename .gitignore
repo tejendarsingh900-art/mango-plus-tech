@@ -1,0 +1,10 @@
+.next/
+node_modules/
+.env*
+!.env.example
+public/uploads/*
+!public/uploads/.gitkeep
+screenshots/
+.chrome-*/
+.mobile-audit/
+*.tsbuildinfo

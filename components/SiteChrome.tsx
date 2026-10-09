@@ -1,0 +1,22 @@
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight, ArrowUp, ArrowUpRight, FacebookLogo, InstagramLogo, LinkedinLogo, List, X, XLogo } from '@phosphor-icons/react';
+import { useEffect, useState } from 'react';
+
+function Brand(){return <Link href="/" className="logo" aria-label="Mango Plus Tech home"><Image src="/mango-plus-logo.png" alt="Mango Plus Tech" width={760} height={154} priority/></Link>}
+
+export function SiteHeader(){
+  const [visible,setVisible]=useState(true); const [scrolled,setScrolled]=useState(false); const [showScrollTop,setShowScrollTop]=useState(false); const [menuOpen,setMenuOpen]=useState(false);
+  useEffect(()=>{let previous=window.scrollY;const onScroll=()=>{const current=window.scrollY;setScrolled(current>45);setShowScrollTop(current>520);setVisible(menuOpen||current<90||current<previous);previous=current};onScroll();window.addEventListener('scroll',onScroll,{passive:true});return()=>window.removeEventListener('scroll',onScroll)},[menuOpen]);
+  useEffect(()=>{document.body.classList.toggle('menu-open',menuOpen);return()=>document.body.classList.remove('menu-open')},[menuOpen]);
+  const close=()=>setMenuOpen(false);
+  return <><header className={`nav shell smart-nav ${visible?'is-visible':'is-hidden'} ${scrolled||menuOpen?'is-scrolled':''} ${menuOpen?'menu-active':''}`}><Brand/><nav><Link href="/services">Services</Link><Link href="/work">Work</Link><Link href="/company">Company</Link><Link href="/insights">Insights</Link></nav><Link className="nav-cta" href="/contact">Start a project <ArrowUpRight weight="bold"/></Link><button className="menu-toggle" onClick={()=>setMenuOpen(v=>!v)} aria-expanded={menuOpen} aria-label={menuOpen?'Close menu':'Open menu'}>{menuOpen?<X weight="bold"/>:<List weight="bold"/>}</button></header><div className={`mobile-menu ${menuOpen?'open':''}`} aria-hidden={!menuOpen}><nav><Link onClick={close} href="/services"><span>01</span>Services</Link><Link onClick={close} href="/work"><span>02</span>Work</Link><Link onClick={close} href="/company"><span>03</span>Company</Link><Link onClick={close} href="/insights"><span>04</span>Insights</Link><Link onClick={close} href="/careers"><span>05</span>Careers</Link></nav><Link onClick={close} className="mobile-menu-cta" href="/contact">Start a project <ArrowUpRight weight="bold"/></Link></div><button className={`scroll-top ${showScrollTop?'show':''}`} onClick={()=>window.scrollTo({top:0,behavior:'smooth'})} aria-label="Scroll to top"><ArrowUp weight="bold"/><span>Top</span></button></>
+}
+
+export function SiteFooter(){return <footer><div className="shell"><div className="footer-main"><div><Brand/><p>Technology with taste.<br/>Marketing with purpose.</p><div className="social"><a href="#" aria-label="LinkedIn"><LinkedinLogo weight="fill"/></a><a href="#" aria-label="Instagram"><InstagramLogo weight="bold"/></a><a href="#" aria-label="Facebook"><FacebookLogo weight="fill"/></a><a href="#" aria-label="X"><XLogo weight="bold"/></a></div></div><div><h4>Explore</h4><Link href="/services">Services</Link><Link href="/work">Our work</Link><Link href="/company">Company</Link><Link href="/insights">Insights</Link><Link href="/careers">Careers</Link></div><div><h4>Say hello</h4><a href="mailto:hello@mangoplustech.com">hello@mangoplustech.com</a><a href="tel:+919999999999">+91 99999 99999</a><span>Gurugram, India</span></div><div className="newsletter"><h4>Good ideas, occasionally.</h4><p>Join our no-spam newsletter.</p><form><input type="email" placeholder="Your email address" aria-label="Your email address"/><button aria-label="Subscribe"><ArrowRight/></button></form></div></div><div className="footer-bottom"><span>© 2026 Mango Plus Tech</span><span><Link href="/privacy">Privacy</Link> · <Link href="/terms">Terms</Link></span><span>Made with care in India ♥</span></div></div></footer>}
+
+export function InnerHero({kicker,title,accent,copy}:{kicker:string,title:string,accent:string,copy:string}){return <section className="inner-hero"><div className="inner-grid"/><div className="shell"><div className="inner-kicker">{kicker}</div><h1>{title}<br/><em>{accent}</em></h1><p>{copy}</p></div></section>}
+
+export function InnerCta(){return <section className="inner-cta"><div className="shell"><span>READY WHEN YOU ARE</span><h2>Have a challenge?<br/><em>Let&apos;s solve it.</em></h2><Link href="/contact" className="button dark-button">Start a conversation <ArrowUpRight weight="bold"/></Link></div></section>}

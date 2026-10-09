@@ -1,0 +1,16 @@
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowUpRight, CheckCircle } from '@phosphor-icons/react/dist/ssr';
+import { InnerCta, InnerHero, SiteFooter, SiteHeader } from '../../components/SiteChrome';
+import { cmsMetadata } from '../../lib/cms';
+export function generateMetadata():Promise<Metadata>{return cmsMetadata('services',{ title: 'Digital Services | Mango Plus Tech', description: 'Modern web development, SEO, performance marketing, e-commerce, branding and product engineering services.' })}
+const items = [
+  { slug:'web-development',n:'01',title:'Web Development',image:'/services/web-development.png',copy:'High-performance websites engineered with Next.js, thoughtful UX and conversion-led architecture.',points:['Next.js & React builds','UI/UX systems','CMS & integrations','Performance optimization'] },
+  { slug:'seo-growth',n:'02',title:'SEO & Growth',image:'/services/seo-growth.png',copy:'Search strategies that connect technical foundations, useful content and compounding authority.',points:['Technical SEO','Content strategy','Local SEO','Analytics & reporting'] },
+  { slug:'performance-ads',n:'03',title:'Performance Ads',image:'/services/performance-ads.png',copy:'Paid acquisition designed around qualified demand, disciplined experimentation and profitable scale.',points:['Google Ads','Meta campaigns','Landing pages','Conversion tracking'] },
+  { slug:'brand-creative',n:'04',title:'Brand & Creative',image:'/services/brand-creative.png',copy:'Distinctive identities and digital creative systems that make every customer touchpoint feel connected.',points:['Brand strategy','Visual identity','Campaign creative','Content systems'] },
+  { slug:'ecommerce',n:'05',title:'E-commerce',image:'/services/ecommerce.png',copy:'Frictionless storefronts with fast discovery, clear merchandising and dependable checkout journeys.',points:['Storefront design','Custom commerce','Payment integrations','Growth optimization'] },
+  { slug:'apps-products',n:'06',title:'Apps & Products',image:'/services/apps-products.png',copy:'Scalable web apps, mobile experiences and internal platforms built around real operational needs.',points:['Product strategy','SaaS platforms','Dashboards','Cloud architecture'] },
+];
+export default function ServicesPage(){return <main><SiteHeader/><InnerHero kicker="SERVICES / WHAT WE BUILD" title="Capabilities that turn" accent="ambition into momentum." copy="Strategy, design, technology and growth expertise—assembled around the outcome your business needs next."/><section className="inner-section shell"><div className="inner-section-head"><span>ONE PARTNER. FULL SPECTRUM.</span><h2>Built to perform.<br/>Designed to last.</h2></div><div className="service-detail-list">{items.map(s=><article key={s.title}><div className="service-detail-image"><Image src={s.image} alt={s.title} fill sizes="(max-width:800px) 100vw, 48vw"/></div><div className="service-detail-copy"><span>{s.n} / SERVICE</span><h3>{s.title}</h3><p>{s.copy}</p><ul>{s.points.map(x=><li key={x}><CheckCircle weight="fill"/>{x}</li>)}</ul><Link href={`/services/${s.slug}`}>Explore service <ArrowUpRight/></Link></div></article>)}</div></section><InnerCta/><SiteFooter/></main>}
