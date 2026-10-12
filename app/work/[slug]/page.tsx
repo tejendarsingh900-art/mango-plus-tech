@@ -1,9 +1,53 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { CheckCircle } from '@phosphor-icons/react/dist/ssr';
+import { ArrowLeft, CheckCircle, Lightning, Sparkle, TrendUp } from '@phosphor-icons/react/dist/ssr';
 import { InnerCta, SiteFooter, SiteHeader } from '../../../components/SiteChrome';
 import { caseStudies } from '../../../lib/siteData';
+
 type Slug=keyof typeof caseStudies;
+
+const caseVisuals:Record<Slug,{support:string;detail:string;services:string[];timeline:string}>={
+  'wellness-commerce':{support:'/services/ecommerce.png',detail:'/studio/client-strategy.png',services:['Commerce strategy','UX & interface design','Next.js development','Analytics & optimisation'],timeline:'14 weeks'},
+  'seo-category-leader':{support:'/services/seo-growth.png',detail:'/studio/technology-stack.png',services:['Technical SEO','Information architecture','Content strategy','Growth measurement'],timeline:'6 months'},
+  'bold-brand-future':{support:'/services/brand-creative.png',detail:'/studio/product-team.png',services:['Brand strategy','Visual identity','Digital experience','Campaign creative'],timeline:'12 weeks'},
+};
+
 export function generateStaticParams(){return Object.keys(caseStudies).map(slug=>({slug}))}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const{slug}=await params;const item=caseStudies[slug as Slug];return item?{title:`${item.title} | Mango Plus Tech`,description:item.challenge}:{} }
-export default async function CaseStudy({params}:{params:Promise<{slug:string}>}){const{slug}=await params;const item=caseStudies[slug as Slug];if(!item)notFound();return <main><SiteHeader/><section className="case-hero"><div className="shell"><span>{item.type}</span><h1>{item.title}</h1><div><strong>{item.metric}</strong><p>{item.metricLabel}</p></div></div></section><section className="case-image shell"><Image src={item.image} alt={item.title} fill priority sizes="100vw"/></section><section className="case-story inner-section shell"><article><span>THE CHALLENGE</span><h2>Clarity before creativity.</h2><p>{item.challenge}</p></article><article><span>THE SOLUTION</span><h2>One connected experience.</h2><p>{item.solution}</p></article></section><section className="case-results"><div className="shell"><span>MEASURABLE IMPACT</span><h2>Work that moved<br/>the business.</h2><div>{item.results.map(x=><p key={x}><CheckCircle weight="fill"/>{x}</p>)}</div></div></section><InnerCta/><SiteFooter/></main>}
+
+export default async function CaseStudy({params}:{params:Promise<{slug:string}>}){
+  const{slug}=await params;const key=slug as Slug;const item=caseStudies[key];if(!item)notFound();const visual=caseVisuals[key];
+  return <main className="case-page">
+    <SiteHeader/>
+    <section className="case-hero">
+      <div className="case-hero-grid"/>
+      <div className="shell">
+        <Link className="case-back" href="/work"><ArrowLeft/> All work</Link>
+        <div className="case-hero-layout">
+          <div><span>{item.type}</span><h1>{item.title}</h1><p>{item.challenge}</p></div>
+          <div className="case-hero-stat"><TrendUp weight="bold"/><strong>{item.metric}</strong><p>{item.metricLabel}</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section className="case-feature shell">
+      <div className="case-feature-image"><Image src={item.image} alt={item.title} fill priority sizes="(max-width:800px) 100vw, 1180px"/></div>
+      <div className="case-feature-caption"><span>THE TRANSFORMATION</span><p>Strategy, creative and technology moving together—with every decision tied to a measurable business outcome.</p></div>
+    </section>
+
+    <section className="case-overview inner-section shell">
+      <div className="case-overview-title"><span>PROJECT OVERVIEW</span><h2>A clearer experience.<br/><em>A stronger business.</em></h2></div>
+      <div className="case-facts"><div><small>ENGAGEMENT</small><strong>{visual.timeline}</strong></div><div><small>CAPABILITIES</small>{visual.services.map(x=><p key={x}>{x}</p>)}</div></div>
+    </section>
+
+    <section className="case-narrative"><div className="shell">
+      <article><div className="case-narrative-copy"><span>01 / THE CHALLENGE</span><h2>Clarity before creativity.</h2><p>{item.challenge}</p><div className="case-note"><Lightning weight="fill"/><p>We focused the team on the moments that mattered most to customer confidence and commercial performance.</p></div></div><div className="case-narrative-image"><Image src={visual.support} alt="Project strategy and interface exploration" fill sizes="(max-width:800px) 100vw, 50vw"/></div></article>
+      <article><div className="case-narrative-copy"><span>02 / THE SOLUTION</span><h2>One connected experience.</h2><p>{item.solution}</p><div className="case-note"><Sparkle weight="fill"/><p>One multidisciplinary team carried the idea from insight through design, build and measurable launch.</p></div></div><div className="case-narrative-image"><Image src={visual.detail} alt="Mango Plus team creating the solution" fill sizes="(max-width:800px) 100vw, 50vw"/></div></article>
+    </div></section>
+
+    <section className="case-results"><div className="shell"><div className="case-results-head"><span>03 / MEASURABLE IMPACT</span><h2>Work that moved<br/>the business.</h2><p>Beautiful work matters more when it creates useful, lasting momentum.</p></div><div className="case-result-grid">{item.results.map((x,i)=><article key={x}><span>0{i+1}</span><CheckCircle weight="fill"/><strong>{x}</strong></article>)}</div></div></section>
+
+    <InnerCta/><SiteFooter/>
+  </main>
+}
