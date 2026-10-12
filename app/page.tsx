@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Browser, CaretLeft, CaretRight, ChartLineUp, Code, DeviceMobile, FacebookLogo, InstagramLogo, Lightning, LinkedinLogo, MagnifyingGlass, Megaphone, PenNib, Quotes, RocketLaunch, ShieldCheck, ShoppingBag, Sparkle, Star, Target, TrendUp, XLogo } from '@phosphor-icons/react';
 import { SiteHeader } from '../components/SiteChrome';
+import { siCloudflare, siFigma, siGithub, siGoogle, siGooglecloud, siMeta, siMysql, siNextdotjs, siNodedotjs, siReact, siShopify, siTypescript, siVercel, siWoocommerce, siWordpress } from 'simple-icons';
 
 const services = [
   { slug:'web-development', icon: Code, n:'01', title:'Web Development', text:'Fast, scalable websites built with Next.js and modern technology that turn visitors into customers.', color:'lime', image:'/services/web-development.png' },
@@ -26,12 +27,7 @@ const heroSlides = [
   {eyebrow:'CREATIVE. CAMPAIGNS. RESULTS.',title:<>Ideas that earn<br/>attention and<br/><em>drive action.</em></>,copy:'Sharp creative and performance marketing connected to the commercial outcomes that matter.',image:'/hero-slides/creative-performance.png',alt:'Mango Plus creative performance marketing team'},
 ];
 
-const marqueeImages=[
-  {src:'/marquee/strategy.png',alt:'Abstract digital strategy network'},
-  {src:'/marquee/experience-design.png',alt:'Premium digital experience design'},
-  {src:'/marquee/cloud-technology.png',alt:'Cloud technology infrastructure'},
-  {src:'/marquee/growth-marketing.png',alt:'Digital marketing and business growth'},
-];
+const marqueeLogos=[siNextdotjs,siReact,siNodedotjs,siTypescript,siShopify,siWordpress,siGoogle,siMeta,siGooglecloud,siFigma,siVercel,siWoocommerce,siMysql,siGithub,siCloudflare];
 
 const testimonials = [
   { quote:'Mango Plus didn’t just build us a beautiful website. They understood our business, challenged our thinking and delivered results that went far beyond the brief.', name:'Arjun Khanna', role:'Founder, Northstar Living', initials:'AK', image:'/studio/client-strategy.png' },
@@ -77,8 +73,8 @@ export default function Home() {
       <div className="intro-grid"><h2>Not just another<br/>digital agency.<br/><span>Your growth partner.</span></h2><div><p className="lead">We combine restless curiosity, sharp strategy and seriously good technology to help ambitious brands grow.</p><p>From a first sketch to a full-scale launch, our tight-knit team works as an extension of yours. No bloated layers. No confusing jargon. Just smart people, honest conversations and work that makes a difference.</p><a href="/company" className="text-link">Meet Mango Plus <ArrowRight weight="bold"/></a></div></div>
       <div className="about-visual"><Image src="/studio/product-team.png" alt="Mango Plus product design and development team" fill sizes="(max-width: 800px) 100vw, 1180px"/><div className="about-overlay"/><div className="tech-status"><span className="pulse"/> LIVE PRODUCT STUDIO</div><div className="about-caption"><strong>Designing. Coding.<br/>Shipping.</strong><span>One integrated team from<br/>first commit to scale.</span></div></div>
       <div className="visual-marquee" aria-label="Mango Plus digital capabilities">
-        <div className="visual-marquee-track">{[...marqueeImages,...marqueeImages].map((item,i)=><div className="marquee-image" key={`a-${i}`} aria-hidden={i>=marqueeImages.length}><Image src={item.src} alt={i<marqueeImages.length?item.alt:''} fill sizes="(max-width:800px) 72vw, 360px"/></div>)}</div>
-        <div className="visual-marquee-track reverse">{[...marqueeImages].reverse().concat([...marqueeImages].reverse()).map((item,i)=><div className="marquee-image" key={`b-${i}`} aria-hidden={i>=marqueeImages.length}><Image src={item.src} alt={i<marqueeImages.length?item.alt:''} fill sizes="(max-width:800px) 72vw, 360px"/></div>)}</div>
+        <div className="visual-marquee-track">{[...marqueeLogos,...marqueeLogos].map((logo,i)=><div className="marquee-logo" key={`a-${i}`} aria-label={i<marqueeLogos.length?logo.title:undefined} aria-hidden={i>=marqueeLogos.length}><svg viewBox="0 0 24 24" role="img"><path d={logo.path}/></svg></div>)}</div>
+        <div className="visual-marquee-track reverse">{[...marqueeLogos].reverse().concat([...marqueeLogos].reverse()).map((logo,i)=><div className="marquee-logo" key={`b-${i}`} aria-label={i<marqueeLogos.length?logo.title:undefined} aria-hidden={i>=marqueeLogos.length}><svg viewBox="0 0 24 24" role="img"><path d={logo.path}/></svg></div>)}</div>
       </div>
     </section>
 
