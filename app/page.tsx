@@ -26,6 +26,13 @@ const heroSlides = [
   {eyebrow:'CREATIVE. CAMPAIGNS. RESULTS.',title:<>Ideas that earn<br/>attention and<br/><em>drive action.</em></>,copy:'Sharp creative and performance marketing connected to the commercial outcomes that matter.',image:'/hero-slides/creative-performance.png',alt:'Mango Plus creative performance marketing team'},
 ];
 
+const marqueeImages=[
+  {src:'/marquee/strategy.png',alt:'Abstract digital strategy network'},
+  {src:'/marquee/experience-design.png',alt:'Premium digital experience design'},
+  {src:'/marquee/cloud-technology.png',alt:'Cloud technology infrastructure'},
+  {src:'/marquee/growth-marketing.png',alt:'Digital marketing and business growth'},
+];
+
 const testimonials = [
   { quote:'Mango Plus didn’t just build us a beautiful website. They understood our business, challenged our thinking and delivered results that went far beyond the brief.', name:'Arjun Khanna', role:'Founder, Northstar Living', initials:'AK', image:'/studio/client-strategy.png' },
   { quote:'The team turned a complex product vision into a fast, intuitive platform. Our customers noticed the difference from the very first week.', name:'Rhea Malhotra', role:'Director, Veda Commerce', initials:'RM', image:'/studio/product-team.png' },
@@ -69,7 +76,10 @@ export default function Home() {
       <div className="section-label">01 — WHO WE ARE</div>
       <div className="intro-grid"><h2>Not just another<br/>digital agency.<br/><span>Your growth partner.</span></h2><div><p className="lead">We combine restless curiosity, sharp strategy and seriously good technology to help ambitious brands grow.</p><p>From a first sketch to a full-scale launch, our tight-knit team works as an extension of yours. No bloated layers. No confusing jargon. Just smart people, honest conversations and work that makes a difference.</p><a href="/company" className="text-link">Meet Mango Plus <ArrowRight weight="bold"/></a></div></div>
       <div className="about-visual"><Image src="/studio/product-team.png" alt="Mango Plus product design and development team" fill sizes="(max-width: 800px) 100vw, 1180px"/><div className="about-overlay"/><div className="tech-status"><span className="pulse"/> LIVE PRODUCT STUDIO</div><div className="about-caption"><strong>Designing. Coding.<br/>Shipping.</strong><span>One integrated team from<br/>first commit to scale.</span></div></div>
-      <div className="capabilities"><span>Strategy</span><i/><span>UX / UI</span><i/><span>Technology</span><i/><span>Marketing</span><i/><span>Growth</span></div>
+      <div className="visual-marquee" aria-label="Mango Plus digital capabilities">
+        <div className="visual-marquee-track">{[...marqueeImages,...marqueeImages].map((item,i)=><div className="marquee-image" key={`a-${i}`} aria-hidden={i>=marqueeImages.length}><Image src={item.src} alt={i<marqueeImages.length?item.alt:''} fill sizes="(max-width:800px) 72vw, 360px"/></div>)}</div>
+        <div className="visual-marquee-track reverse">{[...marqueeImages].reverse().concat([...marqueeImages].reverse()).map((item,i)=><div className="marquee-image" key={`b-${i}`} aria-hidden={i>=marqueeImages.length}><Image src={item.src} alt={i<marqueeImages.length?item.alt:''} fill sizes="(max-width:800px) 72vw, 360px"/></div>)}</div>
+      </div>
     </section>
 
     <section className="services section" id="services"><div className="shell">
