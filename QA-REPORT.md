@@ -34,3 +34,9 @@ Mobile menu open/close, shared scroll-to-top, contact query prefill and service 
 - Checked with Chromium; Safari, Firefox, real-device behaviour and assistive-technology testing are not certified.
 
 No Git push or remote deployment was performed in this review.
+
+## Header search follow-up — 26 October 2026
+
+Replaced the search icon's blog redirect with a responsive native search dialog and `/api/search`. The server index uses the current source datasets for pages, services, portfolio projects and blogs; it does not index unpublished database-only CMS edits. New source content is included on rebuild. Queries are debounced, stale requests cancelled, results ranked, and empty/error states shown. Native modal focus trapping, Escape, arrow navigation and return focus are supported.
+
+Desktop and mobile browser tests passed for service/project/article matches, no results, keyboard focus, Escape, result routing and overflow. Production build passed. This follow-up remains local until a subsequent Git push/deployment.
