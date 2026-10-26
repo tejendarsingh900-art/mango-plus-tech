@@ -4,6 +4,7 @@ import {notFound} from 'next/navigation';
 import {ArrowRight,ArrowUpRight,CheckCircle,Compass,Lightning,ShieldCheck,Users,Plus,RocketLaunch,Target,Stack,ChatCircle,Browser} from '@phosphor-icons/react/dist/ssr';
 import {InnerCta,InnerHero,SiteFooter,SiteHeader} from '../../../components/SiteChrome';
 import {serviceDetails} from '../../../lib/siteData';
+import {primaryServiceSlugs} from '../../../lib/serviceCatalog';
 import {serviceExperience,type ServiceSlug} from '../../../lib/serviceExperience';
 import {portfolioProjects} from '../../../lib/portfolio';
 import s from './service-detail.module.css';
@@ -13,6 +14,12 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
 const benefitIcons=[Compass,Lightning,ShieldCheck];
 const capabilityIcons=[Compass,Target,Stack,Lightning,Users,RocketLaunch];
 const overviewHeadlines:Record<ServiceSlug,[string,string]>={
+"saas-solutions":["SaaS Solutions","Software that fits the way you work."],
+"digital-marketing":["Digital Marketing","Connect your message with the right people."],
+"content-creation":["Content Creation","Useful stories. A voice people recognise."],
+"website-hosting":["Website Hosting","A dependable home for your website."],
+"website-maintenance":["Website Maintenance","Keep your website moving forward."],
+"website-security":["Website Security","Build confidence into every layer."],
  'web-development':['Make your website','work as hard as you do.'],
  'seo-growth':['Be the answer','your customers are looking for.'],
  'performance-ads':['Better clicks start','with a better journey.'],
@@ -21,13 +28,13 @@ const overviewHeadlines:Record<ServiceSlug,[string,string]>={
  'apps-products':['Turn complex workflows','into clear experiences.'],
 };
 const challengeIcons=[Compass,Lightning,Stack];
-const siblingIcons:Record<ServiceSlug,typeof Browser>={'web-development':Browser,'seo-growth':Target,'performance-ads':Lightning,'brand-creative':Compass,'ecommerce':Stack,'apps-products':RocketLaunch};
+const siblingIcons:Record<ServiceSlug,typeof Browser>={'web-development':Browser,'seo-growth':Target,'performance-ads':Lightning,'brand-creative':Compass,'ecommerce':Stack,'apps-products':RocketLaunch,'saas-solutions':Stack,'digital-marketing':Target,'content-creation':Compass,'website-hosting':Stack,'website-maintenance':Lightning,'website-security':ShieldCheck};
 const phaseNotes=['We align on the current situation, useful context and the decisions that matter.','We agree priorities and make the next steps visible before implementation.','Work develops through focused reviews and clear feedback from the right people.','The agreed experience is checked against requirements before the next release.','We review the handover and plan the next improvements around real learning.'];
 
 export default async function ServiceDetail({params}:{params:Promise<{slug:string}>}){
  const{slug}=await params;const key=slug as ServiceSlug;const item=serviceDetails[key],detail=serviceExperience[key];if(!item||!detail)notFound();
  const related=portfolioProjects.filter(p=>p.categories.includes(detail.category)).slice(0,3);
- const others=(Object.keys(serviceDetails) as ServiceSlug[]).filter(k=>k!==key).slice(0,3);
+ const others=primaryServiceSlugs.filter(k=>k!==key).slice(0,3);
  return <main className={`public-site ${s.servicePage}`}>
   <SiteHeader/>
   <InnerHero kicker={`SERVICE / ${item.title.toUpperCase()}`} title={item.title} accent={item.accent} copy={item.intro} image={item.image}/>
@@ -37,7 +44,7 @@ export default async function ServiceDetail({params}:{params:Promise<{slug:strin
 
   <section className={`${s.section} ${s.benefitSection}`}><div className="shell"><div className={s.sectionHeading}><span className={s.eyebrow}>WHY IT MATTERS</span><h2>Built around what your business needs.</h2><p>A considered experience connects what your customers need with what your team can confidently deliver.</p></div><div className={s.benefitGrid}>{detail.benefits.map(({title,copy},i)=>{const Icon=benefitIcons[i];return <article key={title}><div className={s.iconBox}><Icon weight="duotone"/></div><h3>{title}</h3><p>{copy}</p></article>})}</div></div></section>
 
-  <section className={s.section} id="capabilities"><div className="shell"><div className={s.splitHeading}><div className={s.sectionHeading}><span className={s.eyebrow}>THE COMPLETE PICTURE</span><h2>What goes into<br/>a better {key==='seo-growth'?'search experience':key==='performance-ads'?'campaign':key==='brand-creative'?'brand':key==='ecommerce'?'store':key==='apps-products'?'product':'website'}.</h2></div><p>We agree the right combination for your project. These are the capabilities we can bring together—not a one-size-fits-all checklist.</p></div><div className={s.capabilityGrid}>{detail.capabilities.map(({title,copy},i)=>{const Icon=capabilityIcons[i];return <article key={title}><div className={s.capabilityTop}><Icon weight="duotone"/><span>0{i+1}</span></div><h3>{title}</h3><p>{copy}</p></article>})}</div><div className={s.deliverables}><span>YOUR AGREED DELIVERABLES</span><div>{item.deliverables.map(text=><span key={text}><CheckCircle weight="fill"/>{text}</span>)}</div></div></div></section>
+  <section className={s.section} id="capabilities"><div className="shell"><div className={s.splitHeading}><div className={s.sectionHeading}><span className={s.eyebrow}>THE COMPLETE PICTURE</span><h2>What goes into<br/>{item.title.toLowerCase()}.</h2></div><p>We agree the right combination for your project. These are the capabilities we can bring together—not a one-size-fits-all checklist.</p></div><div className={s.capabilityGrid}>{detail.capabilities.map(({title,copy},i)=>{const Icon=capabilityIcons[i];return <article key={title}><div className={s.capabilityTop}><Icon weight="duotone"/><span>0{i+1}</span></div><h3>{title}</h3><p>{copy}</p></article>})}</div><div className={s.deliverables}><span>YOUR AGREED DELIVERABLES</span><div>{item.deliverables.map(text=><span key={text}><CheckCircle weight="fill"/>{text}</span>)}</div></div></div></section>
 
   <section className={`${s.section} ${s.visualSection}`}><div className={`shell ${s.visualGrid}`}><div className={s.visualFrame}><Image src={detail.story.image} alt={`${item.title} experience and interface exploration`} fill sizes="(max-width:760px) 100vw, 50vw"/><span><ShieldCheck weight="duotone"/>Designed as one connected experience</span></div><div className={s.sectionHeading}><span className={s.eyebrow}>BEYOND THE FIRST IMPRESSION</span><h2>{detail.story.title}</h2><p>{detail.story.copy}</p><div className={s.storyTags}>{detail.story.tags.map(tag=><span key={tag}>{tag}</span>)}</div><Link className="public-text-link" href="/contact#project-form">Talk through your idea <ArrowRight/></Link></div></div></section>
 

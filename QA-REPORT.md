@@ -37,6 +37,10 @@ No Git push or remote deployment was performed in this review.
 
 ## Header search follow-up — 26 October 2026
 
+## Service catalogue expansion — 26 October 2026
+
+Primary catalogue now contains Website Development, SaaS Solutions, Digital Marketing, E-commerce Development, Content Creation, Website Hosting, Website Maintenance and Website Security. Added six dedicated detailed pages, retaining existing specialised service routes. Updated homepage service links (including previously mismatched creative/e-commerce routes), overview, footer, search data and enquiry selection. Each primary detail route has twelve sections and five FAQs. Route/image/overflow checks passed for all eight at desktop, tablet and mobile widths; query-based service selection passed. Existing illustrations were reused. Third-party costs and security scope limitations are explicit.
+
 Replaced the search icon's blog redirect with a responsive native search dialog and `/api/search`. The server index uses the current source datasets for pages, services, portfolio projects and blogs; it does not index unpublished database-only CMS edits. New source content is included on rebuild. Queries are debounced, stale requests cancelled, results ranked, and empty/error states shown. Native modal focus trapping, Escape, arrow navigation and return focus are supported.
 
 Desktop and mobile browser tests passed for service/project/article matches, no results, keyboard focus, Escape, result routing and overflow. Production build passed. This follow-up remains local until a subsequent Git push/deployment.
