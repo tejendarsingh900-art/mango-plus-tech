@@ -4,21 +4,23 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft, CheckCircle, Lightning, Sparkle, TrendUp } from '@phosphor-icons/react/dist/ssr';
 import { InnerCta, SiteFooter, SiteHeader } from '../../../components/SiteChrome';
 import { caseStudies } from '../../../lib/siteData';
+import { portfolioProjects } from '../../../lib/portfolio';
+import PortfolioConcept from '../../../components/PortfolioConcept';
 
 type Slug=keyof typeof caseStudies;
 
 const caseVisuals:Record<Slug,{support:string;detail:string;services:string[];timeline:string}>={
-  'wellness-commerce':{support:'/services/ecommerce.png',detail:'/studio/client-strategy.png',services:['Commerce strategy','UX & interface design','Next.js development','Analytics & optimisation'],timeline:'14 weeks'},
-  'seo-category-leader':{support:'/services/seo-growth.png',detail:'/studio/technology-stack.png',services:['Technical SEO','Information architecture','Content strategy','Growth measurement'],timeline:'6 months'},
-  'bold-brand-future':{support:'/services/brand-creative.png',detail:'/studio/product-team.png',services:['Brand strategy','Visual identity','Digital experience','Campaign creative'],timeline:'12 weeks'},
+  'wellness-commerce':{support:'/pages/redesign/commerce.webp',detail:'/pages/redesign/company.webp',services:['Commerce strategy','UX & interface design','Next.js development','Analytics & optimisation'],timeline:'14 weeks'},
+  'seo-category-leader':{support:'/reference/service-cards/seo-growth.webp',detail:'/pages/redesign/services.webp',services:['Technical SEO','Information architecture','Content strategy','Growth measurement'],timeline:'6 months'},
+  'bold-brand-future':{support:'/reference/slider-creative.webp',detail:'/pages/redesign/careers.webp',services:['Brand strategy','Visual identity','Digital experience','Campaign creative'],timeline:'12 weeks'},
 };
 
-export function generateStaticParams(){return Object.keys(caseStudies).map(slug=>({slug}))}
-export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const{slug}=await params;const item=caseStudies[slug as Slug];return item?{title:`${item.title} | Mango Plus Tech`,description:item.challenge}:{} }
+export function generateStaticParams(){return [...Object.keys(caseStudies),...portfolioProjects.filter(p=>p.concept).map(p=>p.slug)].map(slug=>({slug}))}
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const{slug}=await params;const item=caseStudies[slug as Slug];const concept=portfolioProjects.find(p=>p.slug===slug&&p.concept);return item?{title:`${item.title} | Mango Plus Tech`,description:item.challenge}:concept?{title:`${concept.title} — Design Concept | Mango Plus Tech`,description:concept.overview}:{} }
 
 export default async function CaseStudy({params}:{params:Promise<{slug:string}>}){
-  const{slug}=await params;const key=slug as Slug;const item=caseStudies[key];if(!item)notFound();const visual=caseVisuals[key];
-  return <main className="case-page">
+  const{slug}=await params;const concept=portfolioProjects.find(p=>p.slug===slug&&p.concept);if(concept)return <PortfolioConcept project={concept}/>;const key=slug as Slug;const item=caseStudies[key];if(!item)notFound();const visual=caseVisuals[key];
+  return <main className="public-site case-page">
     <SiteHeader/>
     <section className="case-hero">
       <div className="case-hero-grid"/>

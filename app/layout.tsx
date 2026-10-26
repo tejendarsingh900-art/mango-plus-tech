@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Manrope, Space_Grotesk } from 'next/font/google';
 import './globals.css';
+import './public-pages.css';
+import './audit-refinements.css';
 import CmsRuntime from '../components/CmsRuntime';
 import MotionEffects from '../components/MotionEffects';
 

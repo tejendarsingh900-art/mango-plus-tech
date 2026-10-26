@@ -9,6 +9,7 @@ export const db = global.mangoDb ?? mysql.createPool({
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || '',
   connectionLimit: 8,
+  connectTimeout: 5000,
   timezone: '+05:30',
   charset: 'utf8mb4',
 });
@@ -28,7 +29,7 @@ export function ensureSchema(){
     for (const [slug,name,summary] of seedPages) await db.execute("INSERT IGNORE INTO cms_pages (slug,name,summary,content_json) VALUES (?,?,?,JSON_OBJECT('elements',JSON_ARRAY()))",[slug,name,summary]);
     const settings=[['site_name','Mango Plus Tech','general'],['contact_email','hello@mangoplustech.com','contact'],['contact_phone','+91 99999 99999','contact'],['contact_location','Gurugram, India','contact'],['default_seo_title','Mango Plus Tech — Digital Growth, Built Better','seo'],['default_seo_description','Web development, SEO, performance marketing and creative digital solutions built to grow modern businesses.','seo']];
     for(const row of settings) await db.execute('INSERT IGNORE INTO cms_settings (setting_key,setting_value,setting_group) VALUES (?,?,?)',row);
-  })();
+  })().catch(error=>{global.mangoDbReady=undefined;throw error});
   return global.mangoDbReady;
 }
 
