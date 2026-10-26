@@ -1,5 +1,9 @@
 # Website review — 25 October 2026
 
+## Tawk chat integration — 26 October 2026
+
+Integrated the supplied property `629dc4ddb0d10b6f3e75e57c` and widget `1k5skk1o2` as a floating widget on public routes, with singleton script loading and admin-route hiding. The supplied inline embedded target was intentionally omitted for floating display. Scroll-to-top was moved above the launcher area. Build passed; provider script URL returned HTTP 200 via curl. Third-party loading failed in the automated browser, so rendered chat and real message delivery are NOT VERIFIED. Mocked provider API testing covers navigation/single script and hide behaviour only. This widget shares the existing property; it is not a separate new property.
+
 ## Coverage
 
 30 public routes: homepage, services overview, all 6 service details, portfolio overview, all 12 project details, company, careers, contact, blog overview, all 3 articles, privacy and terms. Chromium checks at 1440px, 768px and 360px (90 route/viewport combinations).
