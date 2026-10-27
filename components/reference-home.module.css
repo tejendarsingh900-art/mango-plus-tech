@@ -80,7 +80,7 @@
 .heroArt{display:grid;align-items:center;aspect-ratio:4/3}
 .heroArt .heroSlideImage{grid-area:1/1;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;opacity:0;visibility:hidden;transform:translateX(25px) scale(.97);transition:opacity .85s ease,transform 1s cubic-bezier(.2,.7,.25,1),visibility .85s;pointer-events:none}
 .heroArt .heroSlideImage[data-active=true]{opacity:1;visibility:visible;transform:translateX(0) scale(1)}
-.heroSlideCopy{animation:heroTextEnter .65s ease both;min-height:342px}
+.heroSlideCopy{animation:heroTextEnter .65s ease both;min-height:270px}
 .heroSlideCopy>p{max-width:555px;font-size:17px;line-height:1.7;min-height:88px}
 .heroCopy>.actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:550px;min-height:50px}
 .heroCopy>.actions .button{white-space:normal;text-align:center;min-height:50px;padding-left:15px;padding-right:15px;line-height:1.4}
@@ -91,7 +91,19 @@
 .hero[data-slide="2"]{background-image:linear-gradient(110deg,#eff7ff40,#d8e5ff55),url('/reference/hero-background-v2.webp')}
 @media(max-width:760px){.heroCopy>.actions{gap:10px;min-height:60px}.heroCopy>.actions .button{min-height:60px;padding-left:12px;padding-right:12px;gap:8px}.heroCopy .miniStats>div{padding-left:12px;padding-right:12px}.heroCopy .miniStats span{min-height:38px}}
 @keyframes heroTextEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-@media(max-width:760px){.heroSlideCopy{min-height:365px}.heroSlideCopy>p{font-size:16px;min-height:136px}.heroArt .heroSlideImage{height:auto;max-height:none}}
+@media(max-width:760px){.heroSlideCopy{min-height:0}.heroArt .heroSlideImage{height:auto;max-height:none}}
+
+/* The mobile story reads naturally: promise, visual proof, detail, action, results. */
+.heroDescription{max-width:555px;font-size:17px;line-height:1.7;min-height:88px;animation:heroTextEnter .65s ease both}
+@media(max-width:760px){
+ .heroGrid{display:flex;flex-direction:column;align-items:stretch}
+ .heroCopy{display:contents}
+ .heroLead{order:1}
+ .heroArt{order:2;width:100%;margin:12px -4px 8px;align-self:center;aspect-ratio:4/3}
+ .heroDescription{order:3;margin:0;font-size:16px;line-height:1.65;min-height:0;max-width:none}
+ .heroCopy>.actions{order:4;width:100%;margin-top:20px}
+ .heroCopy .miniStats{order:5;width:100%;margin-top:24px}
+}
 .techStrip{padding:25px 0 32px;border-top:1px solid #e8f1ff;border-bottom:1px solid #e8f1ff;background:linear-gradient(#fff,#f9fcff)}
 .techIntro{display:flex;align-items:center;justify-content:center;gap:17px;margin:0 0 22px;text-align:left}
 .techIntro img{display:block;width:104px;height:78px;object-fit:contain;flex:0 0 auto}
@@ -106,7 +118,10 @@
 @media(hover:hover){.brandViewport:hover .brandTrack{animation-play-state:paused}}
 @keyframes brandMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:760px){.brandGroup{gap:32px;padding:8px 16px}.brandGroup>span{min-width:115px;gap:9px}.brandGroup svg{width:24px;height:24px}.brandGroup b{font-size:19px}.brandViewport{mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}}
-@media(max-width:760px){.techStrip{padding:23px 0 27px}.techIntro{gap:8px;margin-bottom:20px}.techIntro img{width:76px;height:64px}.page .techIntro h2{font-size:19px}.brands .techIntro p{font-size:13px}.techStrip .brandGroup b{font-size:18px}.techStrip .brandGroup>span{min-width:120px}}
+@media(max-width:760px){.techStrip{padding:32px 0 28px}.brands .container>.techIntro{display:flex;flex-direction:column;align-items:center;justify-content:center;flex-wrap:nowrap;gap:10px;margin-bottom:22px;text-align:center}.techIntro>div{width:100%}.techIntro img{width:104px;height:78px}.page .techIntro h2{font-size:22px;line-height:1.25}.brands .techIntro p{max-width:310px;margin:7px auto 0;font-size:14px;line-height:1.6;text-align:center}.techStrip .brandGroup b{font-size:18px}.techStrip .brandGroup>span{min-width:120px}}
+@media(max-width:760px){.services .sectionHead{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:26px}.services .sectionHead>div:first-child{width:100%}.services .sectionHead h2{max-width:340px;margin-top:11px;font-size:31px;line-height:1.08}.services .sectionHead>p{max-width:345px;margin:0;font-size:15px;line-height:1.65}.services .sectionHead>p br{display:none}.services .sectionHead .button{justify-self:start;margin-top:2px;min-height:44px;padding:11px 17px;font-size:12px}}
+@media(max-width:760px){.about .aboutGrid{grid-template-columns:minmax(0,1fr);align-items:start;gap:30px}.aboutGrid>div:first-child,.aboutGrid>.values,.aboutGrid>.teamPhoto{min-width:0;width:100%}.about h2{max-width:330px;font-size:31px;line-height:1.12}.about p{font-size:15px;line-height:1.75}.about .values{grid-template-columns:1fr;gap:18px}.about .values>div{gap:14px;padding:15px;border:1px solid #dceaff;border-radius:16px;background:#ffffffb8}.about .values svg{flex:0 0 44px}.about .teamPhoto{height:310px;border-radius:20px}.about .teamPhoto img{object-position:center}}
+@media(max-width:760px){.portfolio .sectionHead{display:grid;grid-template-columns:1fr;align-items:start;gap:14px;margin-bottom:22px}.portfolio .sectionHead>div:first-child{width:100%}.portfolio .sectionHead h2{max-width:330px;margin-top:11px;font-size:31px;line-height:1.1}.portfolio .sectionHead .button{justify-self:start;margin:0;min-height:44px;padding:11px 17px;font-size:12px}.portfolio .filters{justify-content:flex-start;margin-top:0}}
 /* Separate transparent artwork, fully contained inside its own card area. */
 .serviceGrid .serviceCard{display:flex;flex-direction:column;align-items:stretch;position:relative;min-height:0;padding:24px;gap:0;overflow:hidden}
 .serviceGrid .serviceCard .serviceIcon{position:absolute;top:24px;left:24px;width:42px;height:42px;margin:0;font-size:27px;z-index:1}
