@@ -11,6 +11,7 @@ const manrope = Manrope({ subsets: ['latin'], variable: '--font-body' });
 const space = Space_Grotesk({ subsets: ['latin'], variable: '--font-display' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mangoplustech.com'),
   title: 'Mango Plus Tech — Digital Growth, Built Better',
   description: 'Web development, SEO, performance marketing and creative digital solutions built to grow modern businesses.',
 };
