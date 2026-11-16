@@ -6,6 +6,7 @@ import './audit-refinements.css';
 import CmsRuntime from '../components/CmsRuntime';
 import MotionEffects from '../components/MotionEffects';
 import TawkChat from '../components/TawkChat';
+import LeadCapturePopup from '../components/LeadCapturePopup';
 
 const manrope = Manrope({ subsets: ['latin'], variable: '--font-body' });
 const space = Space_Grotesk({ subsets: ['latin'], variable: '--font-display' });
@@ -17,5 +18,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body className={`${manrope.variable} ${space.variable}`}><CmsRuntime/><MotionEffects/><TawkChat/>{children}</body></html>;
+  return <html lang="en"><body className={`${manrope.variable} ${space.variable}`}><CmsRuntime/><MotionEffects/><TawkChat/><LeadCapturePopup/>{children}</body></html>;
 }
